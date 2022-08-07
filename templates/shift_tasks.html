@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Shift tasks
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">   
+        <main class="container py-5 text-center">
+
+            <input type="text" id="Search" onkeyup='mySearch("shift_tasks")' placeholder="Search ..">
+
+            <table id="shift_tasks"  class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-start" onclick='sortTable(0, "shift_tasks")'>Date <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-start" onclick='sortTable(1, "shift_tasks")'>Operator <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-start" onclick='sortTable(2, "shift_tasks")'>Parts <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-end" onclick='sortTable(3, "shift_tasks")'>Amount <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-end" onclick='sortTable(4, "shift_tasks")'>Amount fact <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                    </tr>
+                </thead>
+            <tbody>
+                {% for line in shift_tasks %}
+                       <tr>
+                           <td class="text-start">{{line[1]}}</td>
+                           <td class="text-start">{{line[8]}} {{line[9]}}</td>
+                           <td class="text-end">{{line[14]}}</td>
+                           <td class="text-end">{{line[4]}}</td>
+                           <td class="text-end">{{line[5]}}</td>
+                            <td>
+                                <form action="/delete" method="post">
+                                    <input name="id" type="hidden" value="{{line[0]}}">
+                                    <input name="page" type="hidden" value="shift_tasks">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
+                       </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="/shift_task_add" role="button">Add shift task</a>
+            
+            <script src="/static/scripts.js"></script>
+        </main>
+{% endblock %}

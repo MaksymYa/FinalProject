@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Orders
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">   
+        <main class="container py-5 text-center">
+
+            <input type="text" id="Search" onkeyup='mySearch("orders")' placeholder="Search ..">
+
+            <table id="orders"  class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-start" onclick='sortTable(0, "orders")'>Part name <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-start" onclick='sortTable(1, "orders")'>Amount <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-start" onclick='sortTable(2, "orders")'>Registration data <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-end" onclick='sortTable(3, "orders")'>Shipping data <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-end" onclick='sortTable(4, "orders")'>Status<span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                    </tr>
+                </thead>
+            <tbody>
+                {% for line in orders %}
+                       <tr>
+                           <td class="text-start">{{line[7]}}</td>
+                           <td class="text-start">{{line[2]}}</td>
+                           <td class="text-end">{{line[3]}}</td>
+                           <td class="text-end">{{line[4]}}</td>
+                           <td class="text-end">{{line[5]}}</td>
+                            <td>
+                                <form action="/delete" method="post">
+                                    <input name="id" type="hidden" value="{{line[0]}}">
+                                    <input name="page" type="hidden" value="orders">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
+                       </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="/order_add" role="button">Add order</a>
+            
+            <script src="/static/scripts.js"></script>
+        </main>
+{% endblock %}

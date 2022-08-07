@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Worcker
+{% endblock %}
+
+{% block main %}
+
+{% if session["role_id"] == 3 %}
+    <link href="/static/users.css" rel="stylesheet">   
+        <main class="container py-5 text-center">
+            <form action="/shift_task_submit" method="post">
+                <table id="worcker"  class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="text-start" onclick='sortTable(0, "worcker")'>Date <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                            <th class="text-start" onclick='sortTable(1, "worcker")'>Operator <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                            <th class="text-start" onclick='sortTable(2, "worcker")'>Part <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                            <th class="text-end" onclick='sortTable(3, "worcker")'>Amount plan <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                            <th class="text-end" onclick='sortTable(4, "worcker")'>Amount fact<span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {% for line in shift_tasks %}
+                        <tr>
+                            <td class="text-start">{{line[1]}}</td>
+                            <td class="text-start">{{operator[1]}}</td>
+                            <td class="text-end">{{line[8]}}</td>
+                            <td class="text-end">{{line[4]}}</td>
+                            <td>
+                                <div class="mb-3">
+                                    <input id="amount_fact" name="amount_fact" placeholder="Amount fact" type="number">
+                                    <input name="id" type="hidden" value="{{line[0]}}">
+                                </div>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" type="submit">Submit shift task</button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                
+                <!--<a class="btn btn-primary" href="/shift_task_submit" role="button">Submit shift task</a>-->
+            </form>
+            
+            
+            <script src="/static/scripts.js"></script>
+        </main>
+{% endif %}
+    
+</script>
+{% if error == 1 %}
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script type="text/javascript">
+    var text = '{{text}}'
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: text,
+      showConfirmButton: false,
+    })
+    setTimeout(function() { Swal.fire().close();}, 2000);
+    setTimeout(function() { location.href = '/order_add';}, 2000);
+  </script>
+{% endif %}
+
+  {% endblock %}

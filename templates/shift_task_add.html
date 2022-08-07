@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add shift task
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">
+        <main class="container py-5 text-center">
+                <form action="/shift_task_add" method="post">
+                    <div class="mb-3">
+                      <input class="form-control mx-auto" id="date" name="date" placeholder="Shift task on date" type="text" onfocus="(this.type='date')">
+                    </div>
+                    <div class="mb-3">
+                      <select class="form-control mx-auto" id="operator" name="operator">
+                        <option disabled selected>Operator</option>
+                        {% for operator in operators %}
+                            <option value={{operator[0]}}>{{operator[1]}} {{operator[2]}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <select class="form-control mx-auto" id="part" name="part">
+                        <option disabled selected>Part</option>
+                        {% for part in parts %}
+                            <option value={{part[0]}}>{{part[1]}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <input class="form-control mx-auto w-auto" id="amount_plan" name="amount_plan" placeholder="Amount plan" type="number">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add shift task</button>
+                </form>
+        </main>
+    </script>
+    {% if error == 1 %}
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="text/javascript">
+        var text = '{{text}}'
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: text,
+          showConfirmButton: false,
+        })
+        setTimeout(function() { Swal.fire().close();}, 2000);
+        setTimeout(function() { location.href = '/shift_task_add';}, 2000);
+        ;
+      </script>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Users
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">   
+        <main class="container py-5 text-center">
+
+            <input type="text" id="Search" onkeyup='mySearch("users")' placeholder="Search ..">
+
+            <table id="users"  class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-start" onclick='sortTable(0, "users")'>First Name <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-start" onclick='sortTable(1, "users")'>Last Name <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-end" onclick='sortTable(2, "users")'>Email <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-end" onclick='sortTable(3, "users")'>Role <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                    </tr>
+                </thead>
+            <tbody>
+                {% for line in users %}
+                       <tr>
+                           <td class="text-start">{{line[1]}}</td>
+                           <td class="text-start">{{line[2]}}</td>
+                           <td class="text-end">{{line[3]}}</td>
+                           <td class="text-end">{{line[7]}}</td>
+                            <td>
+                                <form action="/delete" method="post">
+                                    <input name="id" type="hidden" value="{{line[0]}}">
+                                    <input name="page" type="hidden" value="users">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
+                       </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="/register" role="button">Add user</a>
+            
+            <script src="/static/scripts.js"></script>
+        </main>
+{% endblock %}

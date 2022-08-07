@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add customer
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">
+        <main class="container py-5 text-center">
+                <form action="/cp_add" method="post">
+                    <div class="mb-3">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="name" name="name" placeholder="Name" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="email" name="email" placeholder="Email" type="test">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="country" name="country" placeholder="Country" type="test">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add customer</button>
+                </form>
+        </main>
+    </script>
+    {% if error == 1 %}
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="text/javascript">
+        var text = '{{text}}'
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: text,
+          showConfirmButton: false,
+        })
+        setTimeout(function() { Swal.fire().close();}, 2000);
+        setTimeout(function() { location.href = '/cu_add';}, 2000);
+      </script>
+    {% endif %}
+{% endblock %}

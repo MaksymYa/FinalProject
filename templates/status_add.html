@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Add status
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">
+        <main class="container py-5 text-center">
+                <form action="/status_add" method="post">
+                    <div class="mb-3">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="status" name="status" placeholder="Status" type="text">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add part</button>
+                </form>
+        </main>
+    </script>
+    {% if error == 1 %}
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="text/javascript">
+        var text = '{{text}}'
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: text,
+          showConfirmButton: false,
+        })
+        setTimeout(function() { Swal.fire().close();}, 2000);
+        setTimeout(function() { location.href = '/status_add';}, 2000);
+        ;
+      </script>
+    {% endif %}
+{% endblock %}

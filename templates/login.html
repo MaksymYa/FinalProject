@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+ 
+    <title>LOGIN</title>
+    <link href="/static/styles.css" rel="stylesheet">
+  </head>
+  <body>
+    
+    <div class="login-box">
+    <h2>Login</h2>
+    <form action="/login" id="login_form" method="post">
+      <div class="user-box">
+          <input type="text" name="username" required="">
+          <label>Username</label>
+        </div>
+        <div class="user-box">
+          <input type="password" name="password" required="">
+          <label>Password</label>
+        </div>
+        
+        <a href="#" onClick="javascript:  submit();">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          Submit
+        </a>
+       <!--<button type="submit" >Log In</button>-->
+      </form>
+    </div>
+    <script src="/static/js.js"></script>
+    <script>
+      function submit() {
+      var form = document.getElementById("login_form");
+      form.submit();
+      }
+    </script>
+    {% if error == 1 %}
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="text/javascript">
+        var text = '{{text}}'
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: text,
+          showConfirmButton: false,
+        })
+        setTimeout(function() { Swal.fire().close();}, 2000);
+        setTimeout(function() { location.href = '/login';}, 2000);
+      </script>
+    {% endif %}
+  </body>
+</html>

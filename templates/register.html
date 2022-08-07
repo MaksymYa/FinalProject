@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">
+        <main class="container py-5 text-center">
+                <form action="/register" method="post">
+                    <div class="mb-3">
+                        <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="first_name" name="first_name" placeholder="First name" type="text">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="last_name" name="last_name" placeholder="Last name" type="test">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="login" name="login" placeholder="Login" type="test">
+                    </div>
+                    <div class="mb-3">
+                        <select class="form-control mx-auto" id="role" name="role">
+                            <option disabled selected>Role</option>
+                            {% for role in roles %}
+                                <option value={{role[0]}}>{{role[0]}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password">
+                    </div>
+                    <div class="mb-3">
+                        <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder="Password (again)" type="password">
+                    </div>
+                    <button class="btn btn-primary" type="submit">Add user</button>
+                </form>
+        </main>
+    </script>
+    {% if error == 1 %}
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+      <script type="text/javascript">
+        var text = '{{text}}'
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: text,
+          showConfirmButton: false,
+        })
+        setTimeout(function() { Swal.fire().close();}, 2000);
+        setTimeout(function() { location.href = '/register';}, 2000);
+      </script>
+    {% endif %}
+{% endblock %}

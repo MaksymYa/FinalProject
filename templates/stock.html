@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Stock
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">   
+        <main class="container py-5 text-center">
+
+            <input type="text" id="Search" onkeyup='mySearch("stock")' placeholder="Search ..">
+
+            <table id="stock"  class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-start" onclick='sortTable(0, "stock")'>Part name <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-start" onclick='sortTable(1, "stock")'>Amount <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-start" onclick='sortTable(2, "stock")'>Stage <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                    </tr>
+                </thead>
+            <tbody>
+                {% for line in stock %}
+                       <tr>
+                           <td class="text-start">{{line[5]}}</td>
+                           <td class="text-start">{{line[2]}}</td>
+                           <td class="text-end">{{line[10]}}</td>
+                       </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+           
+            <script src="/static/scripts.js"></script>
+        </main>
+{% endblock %}

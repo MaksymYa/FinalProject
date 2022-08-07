@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Parts
+{% endblock %}
+
+{% block main %}
+        <link href="/static/users.css" rel="stylesheet">   
+        <main class="container py-5 text-center">
+
+            <input type="text" id="Search" onkeyup='mySearch("parts")' placeholder="Search ..">
+
+            <table id="parts"  class="table table-striped">
+                <thead>
+                    <tr>
+                        <th class="text-start" onclick='sortTable(0, "parts")'>Part name <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-start" onclick='sortTable(1, "parts")'>Price <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-end" onclick='sortTable(2, "parts")'>Customers <span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                        <th class="text-end" onclick='sortTable(3, "parts")'>Price for worckers<span id="sortT" class="material-symbols-outlined"> swap_vert </span></th>
+                    </tr>
+                </thead>
+            <tbody>
+                {% for line in parts %}
+                       <tr>
+                           <td class="text-start">{{line[1]}}</td>
+                           <td class="text-start">{{line[2]}}</td>
+                           <td class="text-end">{{line[6]}}</td>
+                           <td class="text-end">{{line[3]}}</td>
+                            <td>
+                                <form action="/delete" method="post">
+                                    <input name="id" type="hidden" value="{{line[0]}}">
+                                    <input name="page" type="hidden" value="parts">
+                                    <input type="submit" value="Delete">
+                                </form>
+                            </td>
+                       </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <a class="btn btn-primary" href="/part_add" role="button">Add part</a>
+            
+            <script src="/static/scripts.js"></script>
+        </main>
+{% endblock %}
